@@ -4,11 +4,13 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=3.0.3 <4.0.0"
 
 dependencies:
   equatable: ^2.0.0
-  odoo_rpc: ^0.5.1
+  odoo_rpc:
+    git:
+      url: https://github.com/joeybuddy/odoo-rpc-dart.git
   logger: ^1.0.0
   odoo_repository:
     path: ../../.
