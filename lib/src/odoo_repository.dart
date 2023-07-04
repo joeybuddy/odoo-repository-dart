@@ -70,10 +70,10 @@ class OdooRepository<R extends OdooRecord> {
 
   /// Odoo ORM model name. E.g. 'res.partner'
   /// Must be overridden to set real model name.
-  late String modelName;
+  late final String modelName;
 
   /// Instantiates [OdooRepository] with given [OdooDatabase] info.
-  OdooRepository(this.env) {
+  OdooRepository(this.env, this.modelName) {
     recordStreamController = StreamController<List<R>>.broadcast(
         onListen: startSteam, onCancel: stopStream);
   }
@@ -145,7 +145,7 @@ class OdooRepository<R extends OdooRecord> {
   }
 
   /// Returns cache key name by record [id]
-  String getrecordCacheKey(int id) {
+  String getRecordCacheKey(int id) {
     return '$recordCacheKeyPrefix$id';
   }
 
@@ -168,7 +168,7 @@ class OdooRepository<R extends OdooRecord> {
   /// Stores [record] in cache
   Future<void> cachePut(R record) async {
     if (isAuthenticated) {
-      final key = getrecordCacheKey(record.id);
+      final key = getRecordCacheKey(record.id);
       await env.cache.put(key, record);
     }
   }
@@ -176,7 +176,7 @@ class OdooRepository<R extends OdooRecord> {
   /// Deletes [record] from cache
   Future<void> cacheDelete(R? record) async {
     if (isAuthenticated && record != null) {
-      final key = getrecordCacheKey(record.id);
+      final key = getRecordCacheKey(record.id);
       await env.cache.delete(key);
     }
   }
@@ -184,7 +184,7 @@ class OdooRepository<R extends OdooRecord> {
   /// Gets record from cache by record's [id] (odoo id).
   R? cacheGet(int id) {
     if (isAuthenticated) {
-      final key = getrecordCacheKey(id);
+      final key = getRecordCacheKey(id);
       try {
         return env.cache.get(key, defaultValue: null);
       } on Exception {

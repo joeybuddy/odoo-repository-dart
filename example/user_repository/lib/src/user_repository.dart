@@ -9,15 +9,12 @@ import 'user_record.dart';
 /// User repository interacts with local cache and remote Odoo instance
 /// to provide access to User's data.
 class UserRepository extends OdooRepository<User> {
-  @override
-  final String modelName = 'res.users';
-
   // We need only one record of our user
   @override
   int remoteRecordsCount = 1;
 
   /// Instantiates [UserRepository] with given [OdooClient].
-  UserRepository(OdooEnvironment odoo) : super(odoo) {
+  UserRepository(OdooEnvironment odoo) : super(odoo, 'res.users') {
     // track if session is destroyed.
     // Any ORM call may fail due to expired session.
     // We need to kill user in that case.
