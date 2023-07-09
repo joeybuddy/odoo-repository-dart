@@ -14,7 +14,8 @@ class UserRepository extends OdooRepository<User> {
   int remoteRecordsCount = 1;
 
   /// Instantiates [UserRepository] with given [OdooClient].
-  UserRepository(OdooEnvironment odoo) : super(odoo, 'res.users') {
+  UserRepository(OdooEnvironment odoo)
+      : super(odoo, 'res.users', User.oFields) {
     // track if session is destroyed.
     // Any ORM call may fail due to expired session.
     // We need to kill user in that case.

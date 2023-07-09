@@ -70,10 +70,11 @@ class OdooRepository<R extends OdooRecord> {
 
   /// Odoo ORM model name. E.g. 'res.partner'
   /// Must be overridden to set real model name.
-  late final String modelName;
+  final String modelName;
+  final List<String> oFields;
 
   /// Instantiates [OdooRepository] with given [OdooDatabase] info.
-  OdooRepository(this.env, this.modelName) {
+  OdooRepository(this.env, this.modelName, this.oFields) {
     recordStreamController = StreamController<List<R>>.broadcast(
         onListen: startSteam, onCancel: stopStream);
   }
@@ -240,7 +241,7 @@ class OdooRepository<R extends OdooRecord> {
         'kwargs': {
           'context': {'bin_size': true},
           'domain': domain,
-          'fields': OdooRecord.oFields,
+          'fields': oFields,
           'limit': limit,
           'offset': offset,
           'order': order
