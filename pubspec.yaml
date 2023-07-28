@@ -11,8 +11,7 @@ environment:
 dependencies:
   equatable: ^2.0.3
   odoo_rpc:
-    git:
-      url: https://github.com/joeybuddy/odoo-rpc-dart.git
+    path: "./packages/odoo-rpc-dart"
   logger: ^1.0.0
   crypto: ^3.0.0
   pedantic: ^1.11.1

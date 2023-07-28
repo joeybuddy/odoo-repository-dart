@@ -1,0 +1,3 @@
+[submodule "packages/odoo-rpc-dart"]
+	path = packages/odoo-rpc-dart
+	url = https://github.com/joeybuddy/odoo-rpc-dart.git
