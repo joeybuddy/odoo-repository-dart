@@ -49,6 +49,8 @@ class OdooRepository<R extends OdooRecord> {
   /// True if local cache contains less records that remote db.
   bool get canLoadMore => !isLoadingMore && (_offset < remoteRecordsCount);
 
+  bool get hasReachedMax => latestRecords.length >= remoteRecordsCount;
+
   // Duration in ms for throttling RPC calls
   int throttleDuration = 1000;
 
@@ -286,9 +288,9 @@ class OdooRepository<R extends OdooRecord> {
       if (freshRecordsIDs.isNotEmpty) {
         await env.cache.delete(recordIdsCacheKey);
         await env.cache.put(recordIdsCacheKey, freshRecordsIDs);
-        latestRecords = freshRecords;
-        _recordStreamAdd(latestRecords);
       }
+      latestRecords = freshRecords;
+      _recordStreamAdd(latestRecords);
     } on Exception {
       env.logger.d('$modelName: frontend_get_requests: OdooException}');
     }

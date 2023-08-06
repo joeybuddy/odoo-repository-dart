@@ -4,7 +4,7 @@ class OdooRecord {
 
   /// Creates JSON from [OdooRecord] compatible with Odoo's create() and write().
   /// In opposite to [toJson()] it should represent relational fields as integer
-  /// instad of tuple (id, name).
+  /// instead of tuple (id, name).
   Map<String, dynamic> toVals() {
     return {'id': id};
   }
