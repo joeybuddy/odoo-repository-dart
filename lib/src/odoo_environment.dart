@@ -72,7 +72,7 @@ class OdooEnvironment {
   /// Unique identifier of remote Odoo instance
   String get serverUuid {
     if (!isAuthenticated) {
-      throw OdooException('Not Authenticated');
+      throw OdooAuthenticationException();
     }
     return sha1
         .convert(utf8.encode('${orpc.baseURL}${orpc.sessionId!.dbName}'))

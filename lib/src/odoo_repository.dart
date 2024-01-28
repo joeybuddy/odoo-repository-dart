@@ -117,7 +117,7 @@ class OdooRepository<R extends OdooRecord> {
   /// caching records of [modelName] of database per user
   String get cacheKeySignature {
     if (!isAuthenticated) {
-      throw OdooException('Not Authenticated');
+      throw OdooAuthenticationException();
     }
     return '${env.serverUuid}:${env.orpc.sessionId!.userId}:$modelName';
   }
@@ -130,7 +130,7 @@ class OdooRepository<R extends OdooRecord> {
   /// Returns prefix that is used caching records of [modelName] of database
   String get recordCacheKeyPrefix {
     if (!isAuthenticated) {
-      throw OdooException('Not Authenticated');
+      throw OdooAuthenticationException();
     }
     return 'OdooRecord:$cacheKeySignature:';
   }
@@ -201,7 +201,7 @@ class OdooRepository<R extends OdooRecord> {
   /// Returns currently cached records
   List<R> get _cachedRecords {
     if (!isAuthenticated) {
-      throw OdooException('You must be authenticted to access $modelName');
+      throw OdooAuthenticationException();
     }
     // take list of cached ids and fetch corresponding records
     var ids = env.cache.get(recordIdsCacheKey, defaultValue: []);
